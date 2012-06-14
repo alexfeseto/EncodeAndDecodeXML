@@ -8,36 +8,32 @@ authors:
 license:
   - MIT-style license
 
-requires:
- - core/1.3:   '*'
-
 provides:
   - encodeXML
   - decodeXML
 ...
 */
 
-String.implement({
-    encodeXML: function(){  
-        var xml_to_escaped = {
-            '&': '&amp;',
-            '"': '&quot;',
-            '<': '&lt;',
-            '>': '&gt;'
-        };
-        return String(this).replace(/([\&"<>])/g, function(str, item) {
-            return xml_to_escaped[item];
-        });
-    },
-    decodeXML: function(){
-        var escaped_to_xml = {
-            '&amp;': '&',
-            '&quot;': '"',
-            '&lt;': '<',
-            '&gt;': '>'
-        };        
-        return String(this).replace(/(&quot;|&lt;|&gt;|&amp;)/g, function(str, item) {
-            return escaped_to_xml[item];
-        });
-    }
-});
+String.prototype.encodeXML = function () {
+  var chr_to_xml = {
+    '&': '&amp;',
+    '"': '&quot;',
+    '<': '&lt;',
+     '>': '&gt;'
+  };
+  return this.replace(/([\&"<>])/g, function(str, item) {
+    return chr_to_xml[item];
+  });
+};
+
+String.prototype.decodeXML = function () {
+  var xml_to_chr = {
+    '&amp;': '&',
+    '&quot;': '"',
+    '&lt;': '<',
+    '&gt;': '>'
+  };
+  return this.replace(/(&quot;|&lt;|&gt;|&amp;)/g, function(str, item) {
+    return xml_to_chr[item];
+  });
+};
